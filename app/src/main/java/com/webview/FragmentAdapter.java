@@ -13,7 +13,8 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return new DownloadDocumentFragment();
+            DownloadDocumentFragment downloadDocumentFragment = new DownloadDocumentFragment();
+            return downloadDocumentFragment;
         }
         return new ListFilesFragment();
     }

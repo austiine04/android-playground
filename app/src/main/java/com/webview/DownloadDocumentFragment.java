@@ -6,8 +6,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 public class DownloadDocumentFragment extends Fragment {
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Button downloadButton = (Button) getView().findViewById(R.id.button);
+        downloadButton.setOnClickListener(new DownloadButtonOnClickListener(getActivity()));
+    }
 
     @Nullable
     @Override
