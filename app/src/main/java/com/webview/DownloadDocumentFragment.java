@@ -1,6 +1,7 @@
 package com.webview;
 
 import android.app.DownloadManager;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,7 +28,11 @@ public class DownloadDocumentFragment extends Fragment {
         downloadManager = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
         DownloadManager.Request request = new DownloadManager.Request(
                 Uri.parse(textView.getText().toString()));
-        downloadManager.enqueue(request);
+        long enqueue = downloadManager.enqueue(request);
+
+        getActivity().registerReceiver(
+                new DownloadCompleteBroadcastReceiver(downloadManager, enqueue),
+                new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
     @Nullable
