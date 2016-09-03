@@ -8,13 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class DownloadDocumentFragment extends Fragment {
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Button downloadButton = (Button) getView().findViewById(R.id.button);
-        downloadButton.setOnClickListener(new DownloadButtonOnClickListener(getActivity()));
+
+    @OnClick(R.id.button)
+    public void setDownloadButtonListener(Button button) {
+        button.setOnClickListener(new DownloadButtonOnClickListener(getActivity()));
     }
 
     @Nullable
@@ -22,6 +24,7 @@ public class DownloadDocumentFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.download_document_fragment, container, false);
+        ButterKnife.bind(this, rootView);
         return rootView;
     }
 }
