@@ -1,22 +1,33 @@
 package com.webview;
 
+import android.app.DownloadManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.TextView;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static android.content.Context.DOWNLOAD_SERVICE;
+
 public class DownloadDocumentFragment extends Fragment {
 
+    @BindView(R.id.url) TextView textView;
+
+    private DownloadManager downloadManager;
 
     @OnClick(R.id.button)
-    public void setDownloadButtonListener(Button button) {
-        button.setOnClickListener(new DownloadButtonOnClickListener(getActivity()));
+    public void setDownloadButtonListener() {
+        downloadManager = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
+        DownloadManager.Request request = new DownloadManager.Request(
+                Uri.parse(textView.getText().toString()));
+        downloadManager.enqueue(request);
     }
 
     @Nullable
